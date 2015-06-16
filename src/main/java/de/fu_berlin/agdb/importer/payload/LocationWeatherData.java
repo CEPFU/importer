@@ -9,16 +9,16 @@ public class LocationWeatherData {
 	private StationMetaData stationMetaData;
 	
 	private Date date;
-	private double windChill;
-	private double windDirection;
-	private double windSpeed;
-	private double atmosphereHumidity;
-	private double atmospherePressure;
-	private double atmosphereRising;
-	private double atmosphereVisibility;
+	private Double windChill;
+	private Double windDirection;
+	private Double windSpeed;
+	private Double atmosphereHumidity;
+	private Double atmospherePressure;
+	private Double atmosphereRising;
+	private Double atmosphereVisibility;
 	private String astronomySunrise;
 	private String astronomySunset;
-	private double temperature;
+	private Double temperature;
 
 	private List<ForecastEntry> forecastEntrys;
 	
@@ -39,59 +39,59 @@ public class LocationWeatherData {
 		this.date = date;
 	}
 	
-	public double getWindChill() {
+	public Double getWindChill() {
 		return windChill;
 	}
 	
-	public void setWindChill(double windChill) {
+	public void setWindChill(Double windChill) {
 		this.windChill = windChill;
 	}
 	
-	public double getWindDirection() {
+	public Double getWindDirection() {
 		return windDirection;
 	}
 	
-	public void setWindDirection(double windDirection) {
+	public void setWindDirection(Double windDirection) {
 		this.windDirection = windDirection;
 	}
 	
-	public double getWindSpeed() {
+	public Double getWindSpeed() {
 		return windSpeed;
 	}
 	
-	public void setWindSpeed(double windSpeed) {
+	public void setWindSpeed(Double windSpeed) {
 		this.windSpeed = windSpeed;
 	}
 	
-	public double getAtmosphereHumidity() {
+	public Double getAtmosphereHumidity() {
 		return atmosphereHumidity;
 	}
 	
-	public void setAtmosphereHumidity(double atmosphereHumidity) {
+	public void setAtmosphereHumidity(Double atmosphereHumidity) {
 		this.atmosphereHumidity = atmosphereHumidity;
 	}
 	
-	public double getAtmospherePressure() {
+	public Double getAtmospherePressure() {
 		return atmospherePressure;
 	}
 	
-	public void setAtmospherePressure(double atmospherePressure) {
+	public void setAtmospherePressure(Double atmospherePressure) {
 		this.atmospherePressure = atmospherePressure;
 	}
 	
-	public double getAtmosphereRising() {
+	public Double getAtmosphereRising() {
 		return atmosphereRising;
 	}
 	
-	public void setAtmosphereRising(double atmosphereRising) {
+	public void setAtmosphereRising(Double atmosphereRising) {
 		this.atmosphereRising = atmosphereRising;
 	}
 	
-	public double getAtmosphereVisibility() {
+	public Double getAtmosphereVisibility() {
 		return atmosphereVisibility;
 	}
 	
-	public void setAtmosphereVisibility(double atmosphereVisibility) {
+	public void setAtmosphereVisibility(Double atmosphereVisibility) {
 		this.atmosphereVisibility = atmosphereVisibility;
 	}
 	
@@ -111,11 +111,11 @@ public class LocationWeatherData {
 		this.astronomySunset = astronomySunset;
 	}
 	
-	public double getTemperature() {
+	public Double getTemperature() {
 		return temperature;
 	}
 	
-	public void setTemperature(double temperature) {
+	public void setTemperature(Double temperature) {
 		this.temperature = temperature;
 	}
 	

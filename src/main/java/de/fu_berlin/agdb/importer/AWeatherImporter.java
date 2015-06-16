@@ -19,7 +19,7 @@ public abstract class AWeatherImporter {
 	}
 
 	private boolean hasTimeoutRanOut() {
-		return lastTimeLoaded == 0 || (lastTimeLoaded + getServiceTimeout()) > System.currentTimeMillis();
+		return lastTimeLoaded == 0 || (lastTimeLoaded + getServiceTimeout()) < System.currentTimeMillis();
 	}
 
 	protected abstract List<LocationWeatherData> getWeatherDataForLocations(List<StationMetaData> locations);
