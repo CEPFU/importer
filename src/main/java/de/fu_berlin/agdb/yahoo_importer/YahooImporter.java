@@ -26,7 +26,11 @@ public class YahooImporter extends AWeatherImporter{
 		
 		for (StationMetaData stationMetaData : locations) {
 			try {
-				locationWeatherDatas.add(yahooDataLoader.loadDataForLocation(stationMetaData));
+				
+				LocationWeatherData dataForLocation = yahooDataLoader.loadDataForLocation(stationMetaData);
+				if(dataForLocation != null){
+					locationWeatherDatas.add(dataForLocation);
+				}
 			} catch (Exception e) {
 				logger.error("An Exception was caught while running the YahooImporter:", e);
 			}
