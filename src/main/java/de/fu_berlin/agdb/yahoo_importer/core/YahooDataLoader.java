@@ -30,7 +30,7 @@ public class YahooDataLoader {
 		
 		JSONObject weatherForLocation = getWeatherForLocation(stationMetaData.getStationPosition());
 		if(weatherForLocation != null){
-			LocationWeatherData locationWeatherData = new LocationWeatherData(stationMetaData);
+			LocationWeatherData locationWeatherData = new LocationWeatherData(stationMetaData, System.currentTimeMillis());
 			
 			JSONObject channel = weatherForLocation.getJSONObject("channel");
 			
