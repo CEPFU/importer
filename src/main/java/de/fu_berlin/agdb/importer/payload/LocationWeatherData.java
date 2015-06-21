@@ -11,6 +11,8 @@ public class LocationWeatherData {
 
 	private StationMetaData stationMetaData;
 	
+	private Long timestamp;
+	
 	private Date date;
 	private Double windChill;
 	private Double windDirection;
@@ -25,13 +27,18 @@ public class LocationWeatherData {
 
 	private List<ForecastEntry> forecastEntrys;
 	
-	public LocationWeatherData(StationMetaData stationMetaData) {
+	public LocationWeatherData(StationMetaData stationMetaData, long timestamp) {
 		this.stationMetaData = stationMetaData;
+		this.timestamp = timestamp;
 		forecastEntrys = new ArrayList<ForecastEntry>();
 	}
 	
 	public StationMetaData getStationMetaData(){
 		return stationMetaData;
+	}
+	
+	public Long getTimestamp() {
+		return timestamp;
 	}
 	
 	public Date getDate() {
@@ -133,6 +140,8 @@ public class LocationWeatherData {
 	public JSONObject asJSONObject() {
 
 		JSONObject currentEvent = new JSONObject();
+		
+		currentEvent.put("timestamp", timestamp);
 		
 		currentEvent.put("stationMetaData", stationMetaData.asJSONObject());
 		
