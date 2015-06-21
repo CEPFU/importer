@@ -4,6 +4,9 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class LocationWeatherData {
 
 	private StationMetaData stationMetaData;
@@ -125,5 +128,32 @@ public class LocationWeatherData {
 	
 	public void addForecastEntry(ForecastEntry forecastEntry) {
 		this.forecastEntrys.add(forecastEntry);
+	}
+
+	public JSONObject asJSONObject() {
+
+		JSONObject currentEvent = new JSONObject();
+		
+		currentEvent.put("stationMetaData", stationMetaData.asJSONObject());
+		
+		currentEvent.put("date", date);
+		currentEvent.put("windChill", windChill);
+		currentEvent.put("windDirection", windDirection);
+		currentEvent.put("windSpeed", windSpeed);
+		currentEvent.put("atmosphereHumidity", atmosphereHumidity);
+		currentEvent.put("atmospherePressure", atmospherePressure);
+		currentEvent.put("atmosphereRising", atmosphereRising);
+		currentEvent.put("atmosphereVisibility", atmosphereVisibility);
+		currentEvent.put("astronomySunrise", astronomySunrise);
+		currentEvent.put("astronomySunset", astronomySunset);
+		currentEvent.put("temperature", temperature);
+		
+		JSONArray jsonForecastEntrys = new JSONArray();
+		for(int i = 0; i < forecastEntrys.size(); i++){
+			jsonForecastEntrys.put(forecastEntrys.get(i).asJSONObject());
+		}
+		currentEvent.put("forecastEntrys", jsonForecastEntrys);
+		
+		return currentEvent;
 	}
 }

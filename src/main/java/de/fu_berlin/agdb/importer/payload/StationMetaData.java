@@ -2,6 +2,7 @@ package de.fu_berlin.agdb.importer.payload;
 
 import java.sql.Date;
 
+import org.json.JSONObject;
 import org.postgis.PGgeometry;
 
 public class StationMetaData {
@@ -55,6 +56,17 @@ public class StationMetaData {
 	}
 	public void setFederalState(String federalState) {
 		this.federalState = federalState;
+	}
+	
+	public JSONObject asJSONObject() {
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("stationId", stationId);
+		jsonObject.put("stationPosition", stationPosition);
+		jsonObject.put("fromDate", fromDate);
+		jsonObject.put("stationHeight", stationHeight);
+		jsonObject.put("stationName", stationName);
+		jsonObject.put("federalState", federalState);
+		return jsonObject;
 	}
 
 }
