@@ -1,17 +1,14 @@
 package de.fu_berlin.agdb.importer.payload;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class LocationWeatherData {
 
 	private StationMetaData stationMetaData;
-	
 	private Long timestamp;
+	private DataType dataType;
 	
 	private Date date;
 	private Double windChill;
@@ -24,13 +21,13 @@ public class LocationWeatherData {
 	private String astronomySunrise;
 	private String astronomySunset;
 	private Double temperature;
+	private Double high;
+	private Double low;
 
-	private List<ForecastEntry> forecastEntrys;
-	
-	public LocationWeatherData(StationMetaData stationMetaData, long timestamp) {
+	public LocationWeatherData(StationMetaData stationMetaData, long timestamp, DataType dataType) {
 		this.stationMetaData = stationMetaData;
 		this.timestamp = timestamp;
-		forecastEntrys = new ArrayList<ForecastEntry>();
+		this.dataType = dataType;
 	}
 	
 	public StationMetaData getStationMetaData(){
@@ -39,6 +36,10 @@ public class LocationWeatherData {
 	
 	public Long getTimestamp() {
 		return timestamp;
+	}
+	
+	public DataType getDataType() {
+		return dataType;
 	}
 	
 	public Date getDate() {
@@ -129,21 +130,13 @@ public class LocationWeatherData {
 		this.temperature = temperature;
 	}
 	
-	public List<ForecastEntry> getForecastEntrys() {
-		return forecastEntrys;
-	}
-	
-	public void addForecastEntry(ForecastEntry forecastEntry) {
-		this.forecastEntrys.add(forecastEntry);
-	}
-
 	public JSONObject asJSONObject() {
 
 		JSONObject currentEvent = new JSONObject();
 		
 		currentEvent.put("timestamp", timestamp);
-		
 		currentEvent.put("stationMetaData", stationMetaData.asJSONObject());
+		currentEvent.put("dataType", dataType);
 		
 		currentEvent.put("date", date);
 		currentEvent.put("windChill", windChill);
@@ -156,13 +149,25 @@ public class LocationWeatherData {
 		currentEvent.put("astronomySunrise", astronomySunrise);
 		currentEvent.put("astronomySunset", astronomySunset);
 		currentEvent.put("temperature", temperature);
-		
-		JSONArray jsonForecastEntrys = new JSONArray();
-		for(int i = 0; i < forecastEntrys.size(); i++){
-			jsonForecastEntrys.put(forecastEntrys.get(i).asJSONObject());
-		}
-		currentEvent.put("forecastEntrys", jsonForecastEntrys);
-		
+		currentEvent.put("heigh", high);
+		currentEvent.put("low", low);
+
 		return currentEvent;
+	}
+
+	public Double getHigh() {
+		return high;
+	}
+
+	public void setHigh(Double high) {
+		this.high = high;
+	}
+
+	public Double getLow() {
+		return low;
+	}
+
+	public void setLow(Double low) {
+		this.low = low;
 	}
 }
