@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.log4j.LogManager;
@@ -13,7 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.postgis.PGgeometry;
 
-import de.fu_berlin.agdb.importer.payload.ForecastEntry;
+import de.fu_berlin.agdb.importer.payload.DataType;
 import de.fu_berlin.agdb.importer.payload.LocationWeatherData;
 import de.fu_berlin.agdb.importer.payload.StationMetaData;
 
@@ -26,11 +28,12 @@ public class YahooDataLoader {
 		 yqlRunner = new YQLRunner();
 	}
 	
-	public LocationWeatherData loadDataForLocation(StationMetaData stationMetaData) throws ParseException, ClientProtocolException, IOException{
+	public List<LocationWeatherData> loadDataForLocation(StationMetaData stationMetaData) throws ParseException, ClientProtocolException, IOException{
+		ArrayList<LocationWeatherData> locationWeatherDataList = new ArrayList<LocationWeatherData>();
 		
 		JSONObject weatherForLocation = getWeatherForLocation(stationMetaData.getStationPosition());
 		if(weatherForLocation != null){
-			LocationWeatherData locationWeatherData = new LocationWeatherData(stationMetaData, System.currentTimeMillis());
+			LocationWeatherData locationWeatherData = new LocationWeatherData(stationMetaData, System.currentTimeMillis(), DataType.REPORT);
 			
 			JSONObject channel = weatherForLocation.getJSONObject("channel");
 			
@@ -52,21 +55,21 @@ public class YahooDataLoader {
 			locationWeatherData.setAstronomySunset(astronomy.getString("sunset"));
 			
 			JSONObject item = channel.getJSONObject("item");
-			
 			JSONObject condition = item.getJSONObject("condition");
 			locationWeatherData.setTemperature(JSONHelper.getDouble(condition, "temp"));
+			
+			locationWeatherDataList.add(locationWeatherData);
 			
 			JSONArray forecast = item.getJSONArray("forecast");
 			for(int i = 0; i < forecast.length(); i++){
 				JSONObject forecastEntryData = forecast.getJSONObject(i);
-	
-				ForecastEntry forecastEntry = new ForecastEntry();
-				forecastEntry.setDate(parseRFC822Date(forecastEntryData.getString("date")));
-				forecastEntry.setHigh(forecastEntryData.getDouble("high"));
-				forecastEntry.setLow(forecastEntryData.getDouble("low"));
-				locationWeatherData.addForecastEntry(forecastEntry);
+				LocationWeatherData forecastWeatherData = new LocationWeatherData(stationMetaData, System.currentTimeMillis(), DataType.FORECAST);
+				forecastWeatherData.setDate(parseRFC822Date(forecastEntryData.getString("date")));
+				forecastWeatherData.setHigh(forecastEntryData.getDouble("high"));
+				forecastWeatherData.setLow(forecastEntryData.getDouble("low"));
+				locationWeatherDataList.add(forecastWeatherData);
 			}
-			return locationWeatherData;
+			return locationWeatherDataList;
 		} else {
 			return null;
 		}
