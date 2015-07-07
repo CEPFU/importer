@@ -41,8 +41,8 @@ public class YahooImporter extends AWeatherImporter{
 
 	@Override
 	protected long getServiceTimeout() {
-		//5 minutes
-		return 5*60*1000;
+		//30 seconds
+		return 1*30*1000;
 	}
 
 }
