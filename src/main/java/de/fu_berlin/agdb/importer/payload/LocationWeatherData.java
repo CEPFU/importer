@@ -21,8 +21,17 @@ public class LocationWeatherData {
 	private String astronomySunrise;
 	private String astronomySunset;
 	private Double temperature;
-	private Double high;
-	private Double low;
+	private Double temperatureHigh;
+	private Double temperatureLow;
+	
+	private Integer qualityLevel;
+	private Double steamPressure;
+	private Double cloudage;
+	private Double minimumAirGroundTemperature;
+	private Double maximumWindSpeed;
+	private Double precipitationDepth;
+	private Double sunshineDuration;
+	private Double snowHeight;
 
 	public LocationWeatherData(StationMetaData stationMetaData, long timestamp, DataType dataType) {
 		this.stationMetaData = stationMetaData;
@@ -149,25 +158,89 @@ public class LocationWeatherData {
 		currentEvent.put("astronomySunrise", astronomySunrise);
 		currentEvent.put("astronomySunset", astronomySunset);
 		currentEvent.put("temperature", temperature);
-		currentEvent.put("heigh", high);
-		currentEvent.put("low", low);
+		currentEvent.put("heigh", temperatureHigh);
+		currentEvent.put("low", temperatureLow);
 
 		return currentEvent;
 	}
 
-	public Double getHigh() {
-		return high;
+	public Double getTemperatureHigh() {
+		return temperatureHigh;
 	}
 
-	public void setHigh(Double high) {
-		this.high = high;
+	public void setTemperatureHigh(Double temperatureHigh) {
+		this.temperatureHigh = temperatureHigh;
 	}
 
-	public Double getLow() {
-		return low;
+	public Double getTemperatureLow() {
+		return temperatureLow;
 	}
 
-	public void setLow(Double low) {
-		this.low = low;
+	public void setTemperatureLow(Double temperatureLow) {
+		this.temperatureLow = temperatureLow;
+	}
+
+	public Integer getQualityLevel() {
+		return qualityLevel;
+	}
+
+	public void setQualityLevel(Integer qualityLevel) {
+		this.qualityLevel = qualityLevel;
+	}
+
+	public Double getSteamPressure() {
+		return steamPressure;
+	}
+
+	public void setSteamPressure(Double steamPressure) {
+		this.steamPressure = steamPressure;
+	}
+
+	public Double getCloudage() {
+		return cloudage;
+	}
+
+	public void setCloudage(Double cloudage) {
+		this.cloudage = cloudage;
+	}
+
+	public Double getMinimumAirGroundTemperature() {
+		return minimumAirGroundTemperature;
+	}
+
+	public void setMinimumAirGroundTemperature(Double minimumAirGroundTemperature) {
+		this.minimumAirGroundTemperature = minimumAirGroundTemperature;
+	}
+
+	public Double getMaximumWindSpeed() {
+		return maximumWindSpeed;
+	}
+
+	public void setMaximumWindSpeed(Double maximumWindSpeed) {
+		this.maximumWindSpeed = maximumWindSpeed;
+	}
+
+	public Double getPrecipitationDepth() {
+		return precipitationDepth;
+	}
+
+	public void setPrecipitationDepth(Double precipitationDepth) {
+		this.precipitationDepth = precipitationDepth;
+	}
+
+	public Double getSunshineDuration() {
+		return sunshineDuration;
+	}
+
+	public void setSunshineDuration(Double sunshineDuration) {
+		this.sunshineDuration = sunshineDuration;
+	}
+
+	public Double getSnowHeight() {
+		return snowHeight;
+	}
+
+	public void setSnowHeight(Double snowHeight) {
+		this.snowHeight = snowHeight;
 	}
 }
