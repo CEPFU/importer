@@ -138,31 +138,6 @@ public class LocationWeatherData {
 	public void setTemperature(Double temperature) {
 		this.temperature = temperature;
 	}
-	
-	public JSONObject asJSONObject() {
-
-		JSONObject currentEvent = new JSONObject();
-		
-		currentEvent.put("timestamp", timestamp);
-		currentEvent.put("stationMetaData", stationMetaData.asJSONObject());
-		currentEvent.put("dataType", dataType);
-		
-		currentEvent.put("date", date);
-		currentEvent.put("windChill", windChill);
-		currentEvent.put("windDirection", windDirection);
-		currentEvent.put("windSpeed", windSpeed);
-		currentEvent.put("atmosphereHumidity", atmosphereHumidity);
-		currentEvent.put("atmospherePressure", atmospherePressure);
-		currentEvent.put("atmosphereRising", atmosphereRising);
-		currentEvent.put("atmosphereVisibility", atmosphereVisibility);
-		currentEvent.put("astronomySunrise", astronomySunrise);
-		currentEvent.put("astronomySunset", astronomySunset);
-		currentEvent.put("temperature", temperature);
-		currentEvent.put("heigh", temperatureHigh);
-		currentEvent.put("low", temperatureLow);
-
-		return currentEvent;
-	}
 
 	public Double getTemperatureHigh() {
 		return temperatureHigh;
@@ -242,5 +217,40 @@ public class LocationWeatherData {
 
 	public void setSnowHeight(Double snowHeight) {
 		this.snowHeight = snowHeight;
+	}
+	
+	
+	public JSONObject asJSONObject() {
+
+		JSONObject currentEvent = new JSONObject();
+		
+		currentEvent.put("timestamp", timestamp);
+		currentEvent.put("stationMetaData", stationMetaData.asJSONObject());
+		currentEvent.put("dataType", dataType);
+		
+		currentEvent.put("date", date);
+		currentEvent.put("windChill", windChill);
+		currentEvent.put("windDirection", windDirection);
+		currentEvent.put("windSpeed", windSpeed);
+		currentEvent.put("atmosphereHumidity", atmosphereHumidity);
+		currentEvent.put("atmospherePressure", atmospherePressure);
+		currentEvent.put("atmosphereRising", atmosphereRising);
+		currentEvent.put("atmosphereVisibility", atmosphereVisibility);
+		currentEvent.put("astronomySunrise", astronomySunrise);
+		currentEvent.put("astronomySunset", astronomySunset);
+		currentEvent.put("temperature", temperature);
+		currentEvent.put("temperatureHigh", temperatureHigh);
+		currentEvent.put("temperatureLow", temperatureLow);
+		
+		currentEvent.put("qualityLevel", qualityLevel);
+		currentEvent.put("steamPressure", steamPressure);
+		currentEvent.put("cloudage", cloudage);
+		currentEvent.put("minimumAirGroundTemperature", minimumAirGroundTemperature);
+		currentEvent.put("maximumWindSpeed", maximumWindSpeed);
+		currentEvent.put("precipitationDepth", precipitationDepth);
+		currentEvent.put("sunshineDuration", sunshineDuration);
+		currentEvent.put("snowHeight", snowHeight);
+
+		return currentEvent;
 	}
 }
