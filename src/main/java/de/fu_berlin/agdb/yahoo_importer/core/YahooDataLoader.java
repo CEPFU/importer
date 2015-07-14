@@ -65,8 +65,8 @@ public class YahooDataLoader {
 				JSONObject forecastEntryData = forecast.getJSONObject(i);
 				LocationWeatherData forecastWeatherData = new LocationWeatherData(stationMetaData, System.currentTimeMillis(), DataType.FORECAST);
 				forecastWeatherData.setDate(parseRFC822Date(forecastEntryData.getString("date")));
-				forecastWeatherData.setHigh(forecastEntryData.getDouble("high"));
-				forecastWeatherData.setLow(forecastEntryData.getDouble("low"));
+				forecastWeatherData.setTemperatureHigh(forecastEntryData.getDouble("high"));
+				forecastWeatherData.setTemperatureLow(forecastEntryData.getDouble("low"));
 				locationWeatherDataList.add(forecastWeatherData);
 			}
 			return locationWeatherDataList;
