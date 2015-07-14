@@ -3,7 +3,6 @@ package de.fu_berlin.agdb.importer.tools;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,13 +14,13 @@ public class LocationLoader {
 	private ConnectionManager connectionManager;
 
 	public LocationLoader(String host, String database, String user, String password) {
-		connectionManager = new ConnectionManager(host, database, user, password);
+		connectionManager = new ConnectionManager(host, database, user, password, 10);
 	}
 	
-	public synchronized List<StationMetaData> getLocations() throws SQLException{
+	public synchronized List<StationMetaData> getLocations() throws Exception{
 		ArrayList<StationMetaData> stations = new ArrayList<StationMetaData>();
 		
-		Connection connection = connectionManager.getConnection(this);
+		Connection connection = connectionManager.requestConnection();
 		
 		PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM dwd_station_meta_data");
 		ResultSet resultSet = preparedStatement.executeQuery();
@@ -40,12 +39,12 @@ public class LocationLoader {
 		}
 		resultSet.close();
 		preparedStatement.close();
-		connectionManager.closeConnection(this);
+		connectionManager.returnConnectionToPool(connection);
 		return stations;
 	}
 	
-	public synchronized StationMetaData getLocation(Long stationId) throws SQLException{
-		Connection connection = connectionManager.getConnection(this);
+	public synchronized StationMetaData getLocation(Long stationId) throws Exception{
+		Connection connection = connectionManager.requestConnection();
 		StationMetaData stationMetaData = null;
 		
 		PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM dwd_station_meta_data WHERE station_id = ?");
@@ -65,7 +64,7 @@ public class LocationLoader {
 		}
 		resultSet.close();
 		preparedStatement.close();
-		connectionManager.closeConnection(this);
+		connectionManager.returnConnectionToPool(connection);
 		
 		return stationMetaData;
 	}
