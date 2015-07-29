@@ -31,7 +31,7 @@ public class YahooDataLoader {
 	public List<LocationWeatherData> loadDataForLocation(StationMetaData stationMetaData) throws ParseException, ClientProtocolException, IOException{
 		ArrayList<LocationWeatherData> locationWeatherDataList = new ArrayList<LocationWeatherData>();
 		
-		JSONObject weatherForLocation = getWeatherForLocation(stationMetaData.getStationPosition());
+		JSONObject weatherForLocation = getWeatherForLocation(stationMetaData.getLocationPosition());
 		if(weatherForLocation != null){
 			LocationWeatherData locationWeatherData = new LocationWeatherData(stationMetaData, System.currentTimeMillis(), DataType.REPORT);
 			
