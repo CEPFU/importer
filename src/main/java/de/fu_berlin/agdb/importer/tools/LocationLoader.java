@@ -3,6 +3,7 @@ package de.fu_berlin.agdb.importer.tools;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,19 +23,14 @@ public class LocationLoader {
 		
 		Connection connection = connectionManager.requestConnection();
 		
-		PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM location_meta_data, dwd_meta_data WHERE location_meta_data.location_id = dwd_meta_data.location_id");
+		PreparedStatement preparedStatement = connection.prepareStatement(""
+				+ "SELECT * "
+				+ "FROM location_meta_data, dwd_meta_data "
+				+ "WHERE location_meta_data.location_id = dwd_meta_data.location_id "
+				+ ";");
 		ResultSet resultSet = preparedStatement.executeQuery();
 		while(resultSet.next()){
-			StationMetaData stationMetaData = new StationMetaData();
-			
-			stationMetaData.setStationId(resultSet.getLong("station_id"));
-			stationMetaData.setStationPosition((PGgeometry) resultSet.getObject("station_position"));
-			stationMetaData.setFromDate(resultSet.getDate("from_date"));
-			stationMetaData.setUntilDate(resultSet.getDate("until_date"));
-			stationMetaData.setStationHeight(resultSet.getInt("station_height"));
-			stationMetaData.setStationName(resultSet.getString("station_name"));
-			stationMetaData.setFederalState(resultSet.getString("federal_state"));
-			
+			StationMetaData stationMetaData = getStationMetaDataFromResultSet(resultSet);
 			stations.add(stationMetaData);
 		}
 		resultSet.close();
@@ -42,30 +38,43 @@ public class LocationLoader {
 		connectionManager.returnConnectionToPool(connection);
 		return stations;
 	}
-	
+
 	public synchronized StationMetaData getLocation(Long stationId) throws Exception{
 		Connection connection = connectionManager.requestConnection();
 		StationMetaData stationMetaData = null;
 		
-		PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM dwd_station_meta_data WHERE station_id = ?");
+		PreparedStatement preparedStatement = connection.prepareStatement(""
+				+ "SELECT * "
+				+ "FROM location_meta_data, dwd_meta_data "
+				+ "WHERE location_meta_data.location_id = dwd_meta_data.location_id "
+				+ "AND station_id = ? "
+				+ ";");
 		preparedStatement.setLong(1, stationId);
 		
 		ResultSet resultSet = preparedStatement.executeQuery();
 		if(resultSet.next()){
-			stationMetaData = new StationMetaData();
-			
-			stationMetaData.setStationId(resultSet.getLong("station_id"));
-			stationMetaData.setStationPosition((PGgeometry) resultSet.getObject("station_position"));
-			stationMetaData.setFromDate(resultSet.getDate("from_date"));
-			stationMetaData.setUntilDate(resultSet.getDate("until_date"));
-			stationMetaData.setStationHeight(resultSet.getInt("station_height"));
-			stationMetaData.setStationName(resultSet.getString("station_name"));
-			stationMetaData.setFederalState(resultSet.getString("federal_state"));
+			stationMetaData = getStationMetaDataFromResultSet(resultSet);
 		}
 		resultSet.close();
 		preparedStatement.close();
 		connectionManager.returnConnectionToPool(connection);
 		
+		return stationMetaData;
+	}
+
+	private StationMetaData getStationMetaDataFromResultSet(ResultSet resultSet) throws SQLException {
+		StationMetaData stationMetaData;
+		stationMetaData = new StationMetaData();
+		
+		stationMetaData.setLocationId(resultSet.getLong("location_id"));
+		stationMetaData.setLocationPosition((PGgeometry) resultSet.getObject("location_position"));
+		stationMetaData.setLocationDescription(resultSet.getString("location_description"));
+		
+		stationMetaData.setStationId(resultSet.getLong("station_id"));
+		stationMetaData.setFromDate(resultSet.getDate("from_date"));
+		stationMetaData.setUntilDate(resultSet.getDate("until_date"));
+		stationMetaData.setStationHeight(resultSet.getInt("station_height"));
+		stationMetaData.setFederalState(resultSet.getString("federal_state"));
 		return stationMetaData;
 	}
 }
