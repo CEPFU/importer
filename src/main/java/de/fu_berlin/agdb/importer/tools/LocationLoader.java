@@ -22,7 +22,7 @@ public class LocationLoader {
 		
 		Connection connection = connectionManager.requestConnection();
 		
-		PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM dwd_station_meta_data");
+		PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM location_meta_data, dwd_meta_data WHERE location_meta_data.location_id = dwd_meta_data.location_id");
 		ResultSet resultSet = preparedStatement.executeQuery();
 		while(resultSet.next()){
 			StationMetaData stationMetaData = new StationMetaData();

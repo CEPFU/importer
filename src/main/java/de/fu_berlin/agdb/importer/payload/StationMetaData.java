@@ -5,7 +5,7 @@ import java.sql.Date;
 import org.json.JSONObject;
 import org.postgis.PGgeometry;
 
-public class StationMetaData {
+public class StationMetaData extends LocationMetaData {
 
 	private long stationId;
 	private PGgeometry stationPosition;
