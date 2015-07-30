@@ -16,24 +16,42 @@ import org.json.JSONObject;
 import org.postgis.PGgeometry;
 
 import de.fu_berlin.agdb.importer.payload.DataType;
+import de.fu_berlin.agdb.importer.payload.LocationMetaData;
 import de.fu_berlin.agdb.importer.payload.LocationWeatherData;
-import de.fu_berlin.agdb.importer.payload.StationMetaData;
 
-public class YahooDataLoader {
-	private static final Logger logger = LogManager.getLogger(YahooDataLoader.class);
+public class YahooDataLoaderWorker implements Runnable{
+	private static final Logger logger = LogManager.getLogger(YahooDataLoaderWorker.class);
 	
 	private YQLRunner yqlRunner;
+
+	private IWorkProvider workProvider;
 	
-	public YahooDataLoader() {
-		 yqlRunner = new YQLRunner();
+	public YahooDataLoaderWorker(IWorkProvider workProvider) {
+		 this.workProvider = workProvider;
+		yqlRunner = new YQLRunner();
 	}
 	
-	public List<LocationWeatherData> loadDataForLocation(StationMetaData stationMetaData) throws ParseException, ClientProtocolException, IOException{
+	@Override
+	public void run() {
+		
+		LocationMetaData locationMetaData = null;
+		while((locationMetaData = workProvider.getWork()) != null){
+			try {
+				List<LocationWeatherData> dataForLocation = loadDataForLocation(locationMetaData);
+				workProvider.deliverResult(dataForLocation);
+			} catch (ParseException | IOException e) {
+				logger.error("Error while loading data");
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private List<LocationWeatherData> loadDataForLocation(LocationMetaData locationMetaData) throws ParseException, ClientProtocolException, IOException{
 		ArrayList<LocationWeatherData> locationWeatherDataList = new ArrayList<LocationWeatherData>();
 		
-		JSONObject weatherForLocation = getWeatherForLocation(stationMetaData.getLocationPosition());
+		JSONObject weatherForLocation = getWeatherForLocation(locationMetaData.getLocationPosition());
 		if(weatherForLocation != null){
-			LocationWeatherData locationWeatherData = new LocationWeatherData(stationMetaData, System.currentTimeMillis(), DataType.REPORT);
+			LocationWeatherData locationWeatherData = new LocationWeatherData(locationMetaData, System.currentTimeMillis(), DataType.REPORT);
 			
 			JSONObject channel = weatherForLocation.getJSONObject("channel");
 			
@@ -63,7 +81,7 @@ public class YahooDataLoader {
 			JSONArray forecast = item.getJSONArray("forecast");
 			for(int i = 0; i < forecast.length(); i++){
 				JSONObject forecastEntryData = forecast.getJSONObject(i);
-				LocationWeatherData forecastWeatherData = new LocationWeatherData(stationMetaData, System.currentTimeMillis(), DataType.FORECAST);
+				LocationWeatherData forecastWeatherData = new LocationWeatherData(locationMetaData, System.currentTimeMillis(), DataType.FORECAST);
 				forecastWeatherData.setDate(parseRFC822Date(forecastEntryData.getString("date")));
 				forecastWeatherData.setTemperatureHigh(forecastEntryData.getDouble("high"));
 				forecastWeatherData.setTemperatureLow(forecastEntryData.getDouble("low"));
@@ -120,5 +138,4 @@ public class YahooDataLoader {
 			return null;
 		}
 	}
-
 }
