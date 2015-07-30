@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 public class LocationWeatherData {
 
-	private StationMetaData stationMetaData;
+	private LocationMetaData locationMetaData;
 	private Long timestamp;
 	private DataType dataType;
 	
@@ -33,14 +33,14 @@ public class LocationWeatherData {
 	private Double sunshineDuration;
 	private Double snowHeight;
 
-	public LocationWeatherData(StationMetaData stationMetaData, long timestamp, DataType dataType) {
-		this.stationMetaData = stationMetaData;
+	public LocationWeatherData(LocationMetaData locationMetaData, long timestamp, DataType dataType) {
+		this.locationMetaData = locationMetaData;
 		this.timestamp = timestamp;
 		this.dataType = dataType;
 	}
 	
-	public StationMetaData getStationMetaData(){
-		return stationMetaData;
+	public LocationMetaData getLocationMetaData(){
+		return locationMetaData;
 	}
 	
 	public Long getTimestamp() {
@@ -225,7 +225,7 @@ public class LocationWeatherData {
 		JSONObject currentEvent = new JSONObject();
 		
 		currentEvent.put("timestamp", timestamp);
-		currentEvent.put("stationMetaData", stationMetaData.asJSONObject());
+		currentEvent.put("stationMetaData", locationMetaData.asJSONObject());
 		currentEvent.put("dataType", dataType);
 		
 		currentEvent.put("date", date);

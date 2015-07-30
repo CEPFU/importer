@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.postgis.PGgeometry;
 
+import de.fu_berlin.agdb.importer.payload.LocationMetaData;
 import de.fu_berlin.agdb.importer.payload.StationMetaData;
 
 public class LocationLoader {
@@ -18,8 +19,8 @@ public class LocationLoader {
 		connectionManager = new ConnectionManager(host, database, user, password, 10);
 	}
 	
-	public synchronized List<StationMetaData> getLocations() throws Exception{
-		ArrayList<StationMetaData> stations = new ArrayList<StationMetaData>();
+	public synchronized List<LocationMetaData> getLocations() throws Exception{
+		ArrayList<LocationMetaData> stations = new ArrayList<LocationMetaData>();
 		
 		Connection connection = connectionManager.requestConnection();
 		

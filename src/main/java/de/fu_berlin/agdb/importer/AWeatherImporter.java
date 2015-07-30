@@ -2,14 +2,13 @@ package de.fu_berlin.agdb.importer;
 
 import java.util.List;
 
+import de.fu_berlin.agdb.importer.payload.LocationMetaData;
 import de.fu_berlin.agdb.importer.payload.LocationWeatherData;
-import de.fu_berlin.agdb.importer.payload.StationMetaData;
-
 
 public abstract class AWeatherImporter {
 	private long lastTimeLoaded = 0;
 	
-	public List<LocationWeatherData> getWeatherDataForLocationsRespectingTimeout(List<StationMetaData> locations){
+	public List<LocationWeatherData> getWeatherDataForLocationsRespectingTimeout(List<LocationMetaData> locations){
 		List<LocationWeatherData> locationWeatherData = null;
 		if(hasTimeoutRanOut()){
 			locationWeatherData = getWeatherDataForLocations(locations);
@@ -22,7 +21,7 @@ public abstract class AWeatherImporter {
 		return lastTimeLoaded == 0 || (lastTimeLoaded + getServiceTimeout()) < System.currentTimeMillis();
 	}
 
-	protected abstract List<LocationWeatherData> getWeatherDataForLocations(List<StationMetaData> locations);
+	protected abstract List<LocationWeatherData> getWeatherDataForLocations(List<LocationMetaData> locations);
 	
 	protected abstract long getServiceTimeout();
 }
