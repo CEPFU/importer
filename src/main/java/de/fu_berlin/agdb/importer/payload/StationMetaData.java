@@ -56,6 +56,7 @@ public class StationMetaData extends LocationMetaData {
 		JSONObject jsonObject = super.asJSONObject();
 		jsonObject.put("stationId", stationId);
 		jsonObject.put("fromDate", fromDate);
+		jsonObject.put("untilDate", untilDate);
 		jsonObject.put("stationHeight", stationHeight);
 		jsonObject.put("federalState", federalState);
 		return jsonObject;
