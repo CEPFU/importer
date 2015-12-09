@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.log4j.LogManager;
@@ -99,7 +100,7 @@ public class YahooDataLoaderWorker implements Runnable{
 
 	private Date parseRFC822Date(String rfc822Date) throws ParseException{
 		String datePattern = "dd MMM yyyy";
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern, Locale.US);
 		return new Date(simpleDateFormat.parse(rfc822Date).getTime());
 	}
 	
