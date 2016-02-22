@@ -10,8 +10,13 @@ public class GridMetaData extends LocationMetaData {
     private Date fromDate;
     private Date toDate;
 
-    private double gridLat;
-    private double gridLon;
+    private float gridLat;
+    private float gridLon;
+
+    public GridMetaData(float gridLat, float gridLon) {
+        this.gridLat = gridLat;
+        this.gridLon = gridLon;
+    }
 
     public long getGridId() {
         return gridId;
@@ -37,19 +42,19 @@ public class GridMetaData extends LocationMetaData {
         this.toDate = toDate;
     }
 
-    public double getGridLat() {
+    public float getGridLat() {
         return gridLat;
     }
 
-    public void setGridLat(double gridLat) {
+    public void setGridLat(float gridLat) {
         this.gridLat = gridLat;
     }
 
-    public double getGridLon() {
+    public float getGridLon() {
         return gridLon;
     }
 
-    public void setGridLon(double gridLon) {
+    public void setGridLon(float gridLon) {
         this.gridLon = gridLon;
     }
 
