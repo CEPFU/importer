@@ -1,4 +1,4 @@
-package de.fu_berlin.agdb.openweather_importer.core;
+package de.fu_berlin.agdb.importer.forecastio.core;
 
 /**
  * Created by riva on 03.01.16.

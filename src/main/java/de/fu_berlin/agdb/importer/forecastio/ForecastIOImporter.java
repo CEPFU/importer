@@ -1,10 +1,10 @@
-package de.fu_berlin.agdb.openweather_importer;
+package de.fu_berlin.agdb.importer.forecastio;
 
 import de.fu_berlin.agdb.importer.AWeatherImporter;
 import de.fu_berlin.agdb.importer.payload.LocationMetaData;
 import de.fu_berlin.agdb.importer.payload.LocationWeatherData;
-import de.fu_berlin.agdb.openweather_importer.core.IWorkProvider;
-import de.fu_berlin.agdb.openweather_importer.core.OpenweatherDataLoaderWorker;
+import de.fu_berlin.agdb.importer.forecastio.core.IWorkProvider;
+import de.fu_berlin.agdb.importer.forecastio.core.ForecastIODataLoaderWorker;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -14,8 +14,8 @@ import java.util.List;
 /**
  * Created by riva on 03.01.16.
  */
-public class OpenweatherImporter extends AWeatherImporter implements IWorkProvider {
-    private static final Logger logger = LogManager.getLogger(OpenweatherImporter.class);
+public class ForecastIOImporter extends AWeatherImporter implements IWorkProvider {
+    private static final Logger logger = LogManager.getLogger(ForecastIOImporter.class);
 
     private static final int NUMBER_OF_THREADS = 10;
 
@@ -24,7 +24,7 @@ public class OpenweatherImporter extends AWeatherImporter implements IWorkProvid
     private ArrayList<LocationWeatherData> accumulatedData;
     private List<LocationMetaData> locationsToBeDone;
 
-    public OpenweatherImporter() {
+    public ForecastIOImporter() {
         threadPool = new ArrayList<Thread>();
     }
 
@@ -35,7 +35,7 @@ public class OpenweatherImporter extends AWeatherImporter implements IWorkProvid
         accumulatedData = new ArrayList<LocationWeatherData>();
 
         for (int i = 0; i < NUMBER_OF_THREADS; i++) {
-            Thread thread = new Thread(new OpenweatherDataLoaderWorker(this));
+            Thread thread = new Thread(new ForecastIODataLoaderWorker(this));
             threadPool.add(thread);
             thread.start();
         }

@@ -1,4 +1,4 @@
-package de.fu_berlin.agdb.openweather_importer.core;
+package de.fu_berlin.agdb.importer.forecastio.core;
 
 import org.json.JSONException;
 import org.json.JSONObject;

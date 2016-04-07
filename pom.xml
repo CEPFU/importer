@@ -59,6 +59,11 @@
             <artifactId>netcdfAll</artifactId>
             <version>${netcdf-java.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.dvdme</groupId>
+            <artifactId>ForecastIOLib</artifactId>
+            <version>LATEST</version>
+        </dependency>
     </dependencies>
 
     <repositories>

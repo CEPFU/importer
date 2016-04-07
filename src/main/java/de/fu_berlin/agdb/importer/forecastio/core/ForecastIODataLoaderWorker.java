@@ -1,4 +1,4 @@
-package de.fu_berlin.agdb.openweather_importer.core;
+package de.fu_berlin.agdb.importer.forecastio.core;
 
 import com.github.dvdme.ForecastIOLib.ForecastIO;
 import de.fu_berlin.agdb.importer.payload.DataType;
@@ -21,14 +21,14 @@ import java.util.Locale;
 /**
  * Created by riva on 03.01.16.
  */
-public class OpenweatherDataLoaderWorker implements Runnable {
+public class ForecastIODataLoaderWorker implements Runnable {
 
-    private static final Logger logger = LogManager.getLogger(OpenweatherDataLoaderWorker.class);
+    private static final Logger logger = LogManager.getLogger(ForecastIODataLoaderWorker.class);
 
 
     private IWorkProvider workProvider;
 
-    public OpenweatherDataLoaderWorker(IWorkProvider workProvider) {
+    public ForecastIODataLoaderWorker(IWorkProvider workProvider) {
         this.workProvider = workProvider;
     }
 
