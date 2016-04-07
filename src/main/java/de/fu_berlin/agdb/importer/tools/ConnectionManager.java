@@ -1,14 +1,14 @@
 package de.fu_berlin.agdb.importer.tools;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.postgis.PGgeometry;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.postgis.PGgeometry;
 
 public class ConnectionManager {
 	private static final Logger logger = LogManager.getLogger(ConnectionManager.class);

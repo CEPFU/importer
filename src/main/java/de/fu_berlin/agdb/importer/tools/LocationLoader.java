@@ -1,16 +1,15 @@
 package de.fu_berlin.agdb.importer.tools;
 
+import de.fu_berlin.agdb.importer.payload.LocationMetaData;
+import de.fu_berlin.agdb.importer.payload.StationMetaData;
+import org.postgis.PGgeometry;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.postgis.PGgeometry;
-
-import de.fu_berlin.agdb.importer.payload.LocationMetaData;
-import de.fu_berlin.agdb.importer.payload.StationMetaData;
 
 public class LocationLoader {
 	private ConnectionManager connectionManager;

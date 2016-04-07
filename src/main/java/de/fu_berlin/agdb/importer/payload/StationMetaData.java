@@ -1,8 +1,8 @@
 package de.fu_berlin.agdb.importer.payload;
 
-import java.sql.Date;
-
 import org.json.JSONObject;
+
+import java.sql.Date;
 
 public class StationMetaData extends LocationMetaData {
 

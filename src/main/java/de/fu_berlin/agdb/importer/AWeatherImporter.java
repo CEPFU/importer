@@ -1,9 +1,9 @@
 package de.fu_berlin.agdb.importer;
 
-import java.util.List;
-
 import de.fu_berlin.agdb.importer.payload.LocationMetaData;
 import de.fu_berlin.agdb.importer.payload.LocationWeatherData;
+
+import java.util.List;
 
 public abstract class AWeatherImporter {
 	private long lastTimeLoaded = 0;

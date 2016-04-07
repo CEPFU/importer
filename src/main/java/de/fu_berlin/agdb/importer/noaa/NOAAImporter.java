@@ -1,10 +1,10 @@
-package de.fu_berlin.agdb.noaa_importer;
+package de.fu_berlin.agdb.importer.noaa;
 
 import de.fu_berlin.agdb.importer.AWeatherImporter;
 import de.fu_berlin.agdb.importer.payload.LocationMetaData;
 import de.fu_berlin.agdb.importer.payload.LocationWeatherData;
-import de.fu_berlin.agdb.noaa_importer.core.IWorkProvider;
-import de.fu_berlin.agdb.noaa_importer.core.NOAADataLoaderWorker;
+import de.fu_berlin.agdb.importer.noaa.core.IWorkProvider;
+import de.fu_berlin.agdb.importer.noaa.core.NOAADataLoaderWorker;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 

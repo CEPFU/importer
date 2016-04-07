@@ -1,4 +1,4 @@
-package de.fu_berlin.agdb.noaa_importer.core;
+package de.fu_berlin.agdb.importer.noaa.core;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.LogManager;
