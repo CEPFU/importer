@@ -1,4 +1,4 @@
-package de.fu_berlin.agdb.yahoo_importer;
+package de.fu_berlin.agdb.importer.yahoo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +9,8 @@ import org.apache.log4j.Logger;
 import de.fu_berlin.agdb.importer.AWeatherImporter;
 import de.fu_berlin.agdb.importer.payload.LocationMetaData;
 import de.fu_berlin.agdb.importer.payload.LocationWeatherData;
-import de.fu_berlin.agdb.yahoo_importer.core.IWorkProvider;
-import de.fu_berlin.agdb.yahoo_importer.core.YahooDataLoaderWorker;
+import de.fu_berlin.agdb.importer.yahoo.core.IWorkProvider;
+import de.fu_berlin.agdb.importer.yahoo.core.YahooDataLoaderWorker;
 
 public class YahooImporter extends AWeatherImporter implements IWorkProvider{
 	

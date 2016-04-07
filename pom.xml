@@ -50,6 +50,11 @@
             <version>3.3</version>
         </dependency>
         <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.4.1</version>
+        </dependency>
+        <dependency>
             <groupId>edu.ucar</groupId>
             <artifactId>netcdfAll</artifactId>
             <version>${netcdf-java.version}</version>

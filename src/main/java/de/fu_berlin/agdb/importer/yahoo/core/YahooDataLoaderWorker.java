@@ -1,4 +1,4 @@
-package de.fu_berlin.agdb.yahoo_importer.core;
+package de.fu_berlin.agdb.importer.yahoo.core;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import de.fu_berlin.agdb.importer.yahoo.core.IWorkProvider;
+import de.fu_berlin.agdb.importer.yahoo.core.JSONHelper;
+import de.fu_berlin.agdb.importer.yahoo.core.YQLRunner;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;

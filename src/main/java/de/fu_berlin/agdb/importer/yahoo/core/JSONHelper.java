@@ -1,4 +1,4 @@
-package de.fu_berlin.agdb.yahoo_importer.core;
+package de.fu_berlin.agdb.importer.yahoo.core;
 
 import org.json.JSONException;
 import org.json.JSONObject;
