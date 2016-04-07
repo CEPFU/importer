@@ -1,4 +1,4 @@
-package de.fu_berlin.agdb.dwd_importer.core;
+package de.fu_berlin.agdb.importer.dwd.core;
 
 import java.io.IOException;
 import java.net.SocketException;

@@ -1,4 +1,4 @@
-package de.fu_berlin.agdb.dwd_importer.core;
+package de.fu_berlin.agdb.importer.dwd.core;
 
 import de.fu_berlin.agdb.importer.payload.LocationWeatherData;
 import de.fu_berlin.agdb.importer.payload.StationMetaData;
