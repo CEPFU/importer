@@ -15,7 +15,7 @@
     <name>Importer</name>
 
     <properties>
-        <netcdf-java.version>4.6.3</netcdf-java.version>
+        <netcdf-java.version>4.6.6</netcdf-java.version>
     </properties>
 
     <dependencies>
