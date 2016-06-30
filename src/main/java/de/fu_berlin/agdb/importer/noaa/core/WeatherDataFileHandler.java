@@ -13,9 +13,10 @@ import ucar.nc2.dataset.NetcdfDataset;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class WeatherDataFileHandler extends DataFileHandler {
 
@@ -51,11 +52,19 @@ public class WeatherDataFileHandler extends DataFileHandler {
     private List<LocationWeatherData> process(NetcdfFile netcdfFile) {
         try {
             Double forecastHour = netcdfFile.findVariable("time").read().getDouble(0);
+            String forecastReftimeString = netcdfFile.findVariable("reftime").findAttribute("units").getStringValue().substring(11);
+            DateFormat iso8661Format = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
+            iso8661Format.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date forecastReftimeDate = iso8661Format.parse(forecastReftimeString);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(forecastReftimeDate);
+            calendar.add(Calendar.HOUR_OF_DAY, forecastHour.intValue());
+            Date forecastDate = calendar.getTime();
 
             float[] latArray = (float[]) netcdfFile.findVariable("lat").read().copyTo1DJavaArray();
             float[] lonArray = (float[]) netcdfFile.findVariable("lon").read().copyTo1DJavaArray();
 
-            int varHour = 0;
+            int varHour;
             if (forecastHour > 240) {
                 varHour = 12;
             } else if (forecastHour % 2 == 1){
@@ -64,14 +73,11 @@ public class WeatherDataFileHandler extends DataFileHandler {
                 varHour = 6;
             }
 
-            Date date;
-
             Array cloudage = netcdfFile.findVariable("Total_cloud_cover_entire_atmosphere_" + varHour + "_Hour_Average").read(); // percent
             Array precipitationDepth = netcdfFile.findVariable("Total_precipitation_surface_" + varHour + "_Hour_Accumulation").read(); // kg/m^2
             Array temperatureHigh = netcdfFile.findVariable("Maximum_temperature_height_above_ground_" + varHour + "_Hour_Maximum").read(); // K
             Array temperatureLow = netcdfFile.findVariable("Minimum_temperature_height_above_ground_" + varHour + "_Hour_Minimum").read(); // K
             Array windChill = netcdfFile.findVariable("Temperature_maximum_wind").read(); // K
-            Array windSpeed = netcdfFile.findVariable("Wind_speed_gust_surface").read(); // m/s
             Array atmosphereHumidity = netcdfFile.findVariable("Relative_humidity_sigma_layer").read(); // percent
             Array atmospherePressure = netcdfFile.findVariable("Pressure_surface").read(); // Pa
             Array temperature = netcdfFile.findVariable("Temperature_surface").read(); // K
@@ -87,11 +93,10 @@ public class WeatherDataFileHandler extends DataFileHandler {
 
                     Index3D index3D = new Index3D(new int[] {0, latIndex, lonIndex});
 
-                    LocationWeatherData locationWeatherData = new LocationWeatherData(gridMetaData, System.currentTimeMillis(), DataType.FORECAST);
+                    LocationWeatherData locationWeatherData = new LocationWeatherData(gridMetaData, forecastDate.getTime(), DataType.FORECAST);
                     locationWeatherData.setCloudage(cloudage.getDouble(index3D));
                     locationWeatherData.setPrecipitationDepth(precipitationDepth.getDouble(index3D));
                     locationWeatherData.setWindChill(windChill.getDouble(index3D));
-                    locationWeatherData.setWindSpeed(windSpeed.getDouble(index3D));
                     locationWeatherData.setAtmosphereHumidity(atmosphereHumidity.getDouble(index3D));
                     locationWeatherData.setAtmospherePressure(atmospherePressure.getDouble(index3D));
                     locationWeatherData.setTemperature(temperature.getDouble(index3D));
@@ -112,7 +117,10 @@ public class WeatherDataFileHandler extends DataFileHandler {
         } catch (IOException e) {
             logger.error("Trying to process " + getFile().getName(), e);
             return null;
+        } catch (ParseException e)
+        {
+            logger.error("Error parsing date " + e);
+            return null;
         }
-
     }
 }
