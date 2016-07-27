@@ -89,7 +89,7 @@ public class WeatherDataFileHandler extends DataFileHandler {
 
             for (int latIndex = 0; latIndex < latArray.length; latIndex++) {
                 for (int lonIndex = 0; lonIndex < lonArray.length; lonIndex++) {
-                    GridMetaData gridMetaData = new GridMetaData(latArray[latIndex], lonArray[lonIndex]);
+                    GridMetaData gridMetaData = new GridMetaData(Float.valueOf(latArray[latIndex]).doubleValue(), Float.valueOf(lonArray[lonIndex]).doubleValue());
 
                     Index3D index3D = new Index3D(new int[] {0, latIndex, lonIndex});
 
